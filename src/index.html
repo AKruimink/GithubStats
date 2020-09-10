@@ -4,7 +4,7 @@
         <title>Github Project Stats</title>    
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Get the latest stats of any github project">
-        <link href="https://fonts.googleapis.com/css?family=Roboto|" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
@@ -24,6 +24,24 @@
                 </div>
             </div>
         </nav>
+        <div class="container">
+            <div class="content-row">
+                <div id="search">
+                    <h1>Enter project details...</h1>
+                    <div class="form">
+                        <div class="form-group">
+                            <input type="text" id="username" class="form-control" placeholder="Github UserName" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="repository" class="form-control" placeholder="Repository Name" autocomplete="off">
+                        </div>
+                        <button id="get-stats-button" class="form-control">
+                            Get the latest stats!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer class="footer">
             <p>Made by <a href="https://github.com/AKruimink" target="_blank">AKruimink</a></p>
         </footer>

@@ -19,6 +19,10 @@ body {
     scrollbar-color: #202324 #454a4d;
 }
 
+h1 {
+    font-size: 36px;
+}
+
 .navbar {
     display: flex;
     flex-direction: row;
@@ -47,6 +51,61 @@ body {
 
 .navbar-right {
     font-size: 14px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.content-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#search {
+    margin-top: 50px;
+}
+
+.form {
+    align-items: flex-start;
+}
+
+.form-control {
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: rgb(178, 172, 162);
+    border-radius: 4px;
+    border: 1px solid rgb(62, 68, 70);;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    background-color: transparent;
+}
+
+.form-control:focus {
+    border-color: rgb(19, 84, 135);
+    outline-color: currentColor;
+    box-shadow: rgba(20, 85, 136, 0.6) 0px 0px 8px;
+}
+
+#username, #repository, #get-stats-button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+#get-stats-button {
+    color: rgb(232, 230, 227);
+    background-color: rgb(43, 102, 153);
+    border-color: rgb(40, 95, 142);
+    cursor: pointer;
+}
+
+#get-stats-button:hover {
+    color: rgb(232, 230, 227);
+    background-color: rgb(40, 94, 142);
+    border-color: rgb(44, 104, 156);    
 }
 
 .footer {
