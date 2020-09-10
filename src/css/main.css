@@ -20,6 +20,31 @@ a:hover {
     text-decoration: underline;
 }
 
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.navbar-default{
+    background-color: rgb(28, 30, 31);
+    border-bottom: 1px solid rgb(55, 59, 62);;
+    color: rgb(157, 148, 136);
+}
+
+.navbar-left {
+    padding: 15px;
+    line-height: 20px;
+    height: 50px;
+}
+
+.navbar-right{
+    padding: 15px;
+    font-size: 14px;
+    line-height: 20px;
+    height: 50px;
+}
+
 .footer {
     position: absolute;
     bottom: 0px;
