@@ -4,7 +4,7 @@
         "noEmitOnError":true,
         "sourceMap":true,
         "target":"ES6",
-        "outDir": "/js/"
+        "outDir": "../js/"
     },
     "compileOnSave": true
 }
