@@ -6,7 +6,7 @@ class Main {
      * Intializes a new instance of Main
      */
     constructor() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e, _f;
         /**
          * Root address to the github api
          */
@@ -20,6 +20,16 @@ class Main {
         // Setup page view
         let username = this.getQueryParameter("username");
         let repository = this.getQueryParameter("repository");
+        if (username != "" && repository != "") {
+            (_d = document.getElementById("username")) === null || _d === void 0 ? void 0 : _d.setAttribute("value", username);
+            (_e = document.getElementById("repository")) === null || _e === void 0 ? void 0 : _e.setAttribute("value", repository);
+            this.validateUserInput();
+            // Get user repo's
+            // GetStats
+        }
+        else {
+            (_f = document.getElementById("username")) === null || _f === void 0 ? void 0 : _f.focus();
+        }
     }
     /**
      * Validates the user input

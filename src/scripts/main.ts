@@ -23,6 +23,18 @@ class Main {
         // Setup page view
         let username: string = this.getQueryParameter("username");
         let repository: string = this.getQueryParameter("repository");
+        
+        if(username != "" && repository != "") {
+            (document.getElementById("username") as HTMLInputElement)?.setAttribute("value", username);
+            (document.getElementById("repository") as HTMLInputElement)?.setAttribute("value", repository);
+            this.validateUserInput();
+
+            // Get user repo's
+            // GetStats
+        }
+        else {
+            (document.getElementById("username") as HTMLInputElement)?.focus();
+        }
     }
 
     /**
