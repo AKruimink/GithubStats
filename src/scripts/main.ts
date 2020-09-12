@@ -21,8 +21,8 @@ class Main {
         (document.getElementById("get-stats-button") as HTMLButtonElement)?.addEventListener("click", event => this.onGetStatsButtonClicked(event));
 
         // Setup page view
-        let username: string = this.getQueryVariable("username");
-        let repository: string = this.getQueryVariable("repository");
+        let username: string = this.getQueryParameter("username");
+        let repository: string = this.getQueryParameter("repository");
     }
 
     /**
@@ -51,17 +51,17 @@ class Main {
     }
 
     /**
-     * Gets the value of a query variable
-     * @param variableName Name of the query variable to get
+     * Gets the value of a query parameter
+     * @param parameterName Name of the query parameter to get the value of
      */
-    private getQueryVariable(variableName: string): string{
+    private getQueryParameter(parameterName: string): string{
         let query: string = window.location.search.substring(1);
         let variables: string[] = query.split("&");
 
         for(var i = 0; i < variables.length; i++) {
             let pair: string[] = variables[i].split("=");
 
-            if(pair[0] == variableName) {
+            if(pair[0] == parameterName) {
                 return pair[1];
             }
         }
@@ -69,28 +69,28 @@ class Main {
     }
 
     /**
-     * Sets a new query variable
-     * @param variableName Name of the variable to set
-     * @param variableValue Value to assign to the new variable
+     * Sets new query parameters, or replaces the value of existing once
+     * @param parameterNames  Names of the parameters to set
+     * @param parameterValues  Values of the parameters to set
      */
-    private setQueryVariable(variableNames: string[], variableValues: string[]): void {
-        if(variableNames.length != variableValues.length) {
+    private setQueryParameters(parameterNames: string[], parameterValues: string[]): void {
+        if(parameterNames.length != parameterValues.length) {
             return;
         }
-        
-        let query: string = window.location.search.substring(1);
 
-        for(let i = 0; i < variableNames.length; i++) {
-            if(query.length <= 0) {
-                query = query.concat("?");
+        let newQuery: string = "";
+
+        for(let i = 0; i < parameterNames.length; i++) {
+            if(newQuery.length <= 0) {
+                newQuery = newQuery.concat("?");
             }
             else {
-                query = query.concat("&");
+                newQuery = newQuery.concat("&");
             }
-
-            query = query.concat(variableNames[i] + "=" + variableValues[i]);
+            newQuery = newQuery.concat(parameterNames[i] + "=" + parameterValues[i]);
         }
-        window.location.href = query;
+
+        window.location.href = newQuery;
     }
 
     /**
@@ -101,7 +101,7 @@ class Main {
         let repository: string = (document.getElementById("repository") as HTMLInputElement)?.value;
 
         if(username != null && repository != null) {
-            this.setQueryVariable(["username", "repository"],[username, repository]);
+            this.setQueryParameters(["username", "repository"],[username, repository]);
         }
     }
 }

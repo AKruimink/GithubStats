@@ -18,8 +18,8 @@ class Main {
         // Setup search event handler
         (_c = document.getElementById("get-stats-button")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", event => this.onGetStatsButtonClicked(event));
         // Setup page view
-        let username = this.getQueryVariable("username");
-        let repository = this.getQueryVariable("repository");
+        let username = this.getQueryParameter("username");
+        let repository = this.getQueryParameter("repository");
     }
     /**
      * Validates the user input
@@ -45,48 +45,40 @@ class Main {
         }
     }
     /**
-     * Gets the value of a query variable
-     * @param variableName Name of the query variable to get
+     * Gets the value of a query parameter
+     * @param parameterName Name of the query parameter to get the value of
      */
-    getQueryVariable(variableName) {
+    getQueryParameter(parameterName) {
         let query = window.location.search.substring(1);
         let variables = query.split("&");
         for (var i = 0; i < variables.length; i++) {
             let pair = variables[i].split("=");
-            if (pair[0] == variableName) {
+            if (pair[0] == parameterName) {
                 return pair[1];
             }
         }
         return "";
     }
     /**
-     * Sets a new query variable
-     * @param variableName Name of the variable to set
-     * @param variableValue Value to assign to the new variable
+     * Sets new query parameters, or replaces the value of existing once
+     * @param parameterNames  Names of the parameters to set
+     * @param parameterValues  Values of the parameters to set
      */
-    setQueryVariable(variableNames, variableValues) {
-        if (variableNames.length != variableValues.length) {
+    setQueryParameters(parameterNames, parameterValues) {
+        if (parameterNames.length != parameterValues.length) {
             return;
         }
-        let query = window.location.search.substring(1);
-        for (let i = 0; i < variableNames.length; i++) {
-            if (query.length <= 0) {
-                query = query.concat("?");
+        let newQuery = "";
+        for (let i = 0; i < parameterNames.length; i++) {
+            if (newQuery.length <= 0) {
+                newQuery = newQuery.concat("?");
             }
             else {
-                query = query.concat("&");
+                newQuery = newQuery.concat("&");
             }
-            query = query.concat(variableNames[i] + "=" + variableValues[i]);
+            newQuery = newQuery.concat(parameterNames[i] + "=" + parameterValues[i]);
         }
-        window.location.href = query;
-        // if(query.length <= 0) {
-        //     query = query.concat("?");
-        // }
-        // else {
-        //     query = query.concat("&");
-        // }
-        // query = query.concat(variableName + "=" + variableValue);
-        // window.location.href = query;
+        window.location.href = newQuery;
     }
     /**
      * Invoked when the Get Stats Button is clicked and  gets all information of a repository
@@ -96,7 +88,7 @@ class Main {
         let username = (_a = document.getElementById("username")) === null || _a === void 0 ? void 0 : _a.value;
         let repository = (_b = document.getElementById("repository")) === null || _b === void 0 ? void 0 : _b.value;
         if (username != null && repository != null) {
-            this.setQueryVariable(["username", "repository"], [username, repository]);
+            this.setQueryParameters(["username", "repository"], [username, repository]);
         }
     }
 }
