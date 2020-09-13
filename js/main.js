@@ -15,7 +15,7 @@ class Main {
      * Intializes a new instance of Main
      */
     constructor() {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         /**
          * Root address to the github api
          */
@@ -30,25 +30,26 @@ class Main {
             }
         });
         (_d = document.getElementById("repository")) === null || _d === void 0 ? void 0 : _d.addEventListener("keyup", this.validateUserInput);
-        (_e = document.getElementById("repository")) === null || _e === void 0 ? void 0 : _e.addEventListener("keyup", (e) => {
+        (_e = document.getElementById("repository")) === null || _e === void 0 ? void 0 : _e.addEventListener("input", this.validateUserInput);
+        (_f = document.getElementById("repository")) === null || _f === void 0 ? void 0 : _f.addEventListener("keyup", (e) => {
             if (e.keyCode == 13) {
                 this.onEnterPressed();
             }
         });
         // Setup search event handler
-        (_f = document.getElementById("get-stats-button")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", event => this.onGetStatsButtonClicked(event));
+        (_g = document.getElementById("get-stats-button")) === null || _g === void 0 ? void 0 : _g.addEventListener("click", event => this.onGetStatsButtonClicked(event));
         // Setup page view
         let username = this.getQueryParameter("username");
         let repository = this.getQueryParameter("repository");
         if (username != "" && repository != "") {
-            (_g = document.getElementById("username")) === null || _g === void 0 ? void 0 : _g.setAttribute("value", username);
-            (_h = document.getElementById("repository")) === null || _h === void 0 ? void 0 : _h.setAttribute("value", repository);
+            (_h = document.getElementById("username")) === null || _h === void 0 ? void 0 : _h.setAttribute("value", username);
+            (_j = document.getElementById("repository")) === null || _j === void 0 ? void 0 : _j.setAttribute("value", repository);
             this.validateUserInput();
             // Get user repo's
             // GetStats
         }
         else {
-            (_j = document.getElementById("username")) === null || _j === void 0 ? void 0 : _j.focus();
+            (_k = document.getElementById("username")) === null || _k === void 0 ? void 0 : _k.focus();
         }
     }
     /**

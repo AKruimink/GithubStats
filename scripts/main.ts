@@ -22,11 +22,13 @@ class Main {
             }
         });
         (document.getElementById("repository") as HTMLInputElement)?.addEventListener("keyup", this.validateUserInput);
+        (document.getElementById("repository") as HTMLInputElement)?.addEventListener("input", this.validateUserInput);
         (document.getElementById("repository") as HTMLInputElement)?.addEventListener("keyup", (e: KeyboardEvent) => {
             if(e.keyCode == 13) {
                 this.onEnterPressed();
             }
         });
+
 
         // Setup search event handler
         (document.getElementById("get-stats-button") as HTMLButtonElement)?.addEventListener("click", event => this.onGetStatsButtonClicked(event));
