@@ -15,6 +15,7 @@ class Main {
 
         // Setup form event handlers
         (document.getElementById("username") as HTMLInputElement)?.addEventListener("keyup", this.validateUserInput);
+        (document.getElementById("username") as HTMLInputElement)?.addEventListener("change", this.setUserRepositories.bind(this));
         (document.getElementById("username") as HTMLInputElement)?.addEventListener("keyup", (e: KeyboardEvent) => {
             if(e.keyCode == 13) {
                 this.onEnterPressed();
@@ -76,7 +77,7 @@ class Main {
      * Gets the value of a query parameter
      * @param parameterName Name of the query parameter to get the value of
      */
-    private getQueryParameter(parameterName: string): string{
+    public getQueryParameter(parameterName: string): string{
         let query: string = window.location.search.substring(1);
         let variables: string[] = query.split("&");
 
@@ -116,6 +117,26 @@ class Main {
     }
 
     /**
+     * Sets all user repositories as suggestion in the repository field
+     */
+    private async setUserRepositories(): Promise<void> {
+        let username: string = (document.getElementById("username") as HTMLInputElement)?.value;
+        let repositoryList: HTMLDataListElement = document.getElementById("repository-list") as HTMLDataListElement;
+        let response: Response = await fetch(this.apiRoot + "users/" + username + "/repos");
+
+        if(response.ok == true) {
+            let data: any[] = await response.json();
+
+            repositoryList.innerHTML = "";
+            data.forEach((element: { name: string; }) => {
+               let option: HTMLOptionElement = document.createElement('option');
+               option.value = element.name;
+               repositoryList.appendChild(option);
+            });
+        }
+    }
+
+    /**
      * Invoked when the Get Stats Button is clicked and  gets all information of a repository
      */
     private onGetStatsButtonClicked(eventArgs: Event): void{
@@ -131,8 +152,8 @@ class Main {
      * Invoked when the enter key is pressed and sets the focus to the next item
      */
     private onEnterPressed(): void {
-        let username = (document.getElementById("username") as HTMLInputElement);
-        let repository = (document.getElementById("repository") as HTMLInputElement);
+        let username: HTMLInputElement = (document.getElementById("username") as HTMLInputElement);
+        let repository: HTMLInputElement = (document.getElementById("repository") as HTMLInputElement);
 
         if(!username?.value) {
             username?.focus();

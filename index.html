@@ -33,7 +33,9 @@
                             <input type="text" id="username" class="form-control" placeholder="Github UserName" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <input type="text" id="repository" class="form-control" placeholder="Repository Name" autocomplete="off">
+                            <input type="text" list="repository-list" id="repository" class="form-control" placeholder="Repository Name" autocomplete="off">
+                            <datalist id="repository-list">
+                            </datalist>
                         </div>
                         <button id="get-stats-button" class="form-control">
                             Get the latest stats!

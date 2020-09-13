@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 /**
  * Defines a class that handles everything related to the main page
  */
@@ -6,7 +15,7 @@ class Main {
      * Intializes a new instance of Main
      */
     constructor() {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         /**
          * Root address to the github api
          */
@@ -14,31 +23,32 @@ class Main {
         this.validateUserInput();
         // Setup form event handlers
         (_a = document.getElementById("username")) === null || _a === void 0 ? void 0 : _a.addEventListener("keyup", this.validateUserInput);
-        (_b = document.getElementById("username")) === null || _b === void 0 ? void 0 : _b.addEventListener("keyup", (e) => {
+        (_b = document.getElementById("username")) === null || _b === void 0 ? void 0 : _b.addEventListener("change", this.setUserRepositories.bind(this));
+        (_c = document.getElementById("username")) === null || _c === void 0 ? void 0 : _c.addEventListener("keyup", (e) => {
             if (e.keyCode == 13) {
                 this.onEnterPressed();
             }
         });
-        (_c = document.getElementById("repository")) === null || _c === void 0 ? void 0 : _c.addEventListener("keyup", this.validateUserInput);
-        (_d = document.getElementById("repository")) === null || _d === void 0 ? void 0 : _d.addEventListener("keyup", (e) => {
+        (_d = document.getElementById("repository")) === null || _d === void 0 ? void 0 : _d.addEventListener("keyup", this.validateUserInput);
+        (_e = document.getElementById("repository")) === null || _e === void 0 ? void 0 : _e.addEventListener("keyup", (e) => {
             if (e.keyCode == 13) {
                 this.onEnterPressed();
             }
         });
         // Setup search event handler
-        (_e = document.getElementById("get-stats-button")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", event => this.onGetStatsButtonClicked(event));
+        (_f = document.getElementById("get-stats-button")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", event => this.onGetStatsButtonClicked(event));
         // Setup page view
         let username = this.getQueryParameter("username");
         let repository = this.getQueryParameter("repository");
         if (username != "" && repository != "") {
-            (_f = document.getElementById("username")) === null || _f === void 0 ? void 0 : _f.setAttribute("value", username);
-            (_g = document.getElementById("repository")) === null || _g === void 0 ? void 0 : _g.setAttribute("value", repository);
+            (_g = document.getElementById("username")) === null || _g === void 0 ? void 0 : _g.setAttribute("value", username);
+            (_h = document.getElementById("repository")) === null || _h === void 0 ? void 0 : _h.setAttribute("value", repository);
             this.validateUserInput();
             // Get user repo's
             // GetStats
         }
         else {
-            (_h = document.getElementById("username")) === null || _h === void 0 ? void 0 : _h.focus();
+            (_j = document.getElementById("username")) === null || _j === void 0 ? void 0 : _j.focus();
         }
     }
     /**
@@ -99,6 +109,26 @@ class Main {
             newQuery = newQuery.concat(parameterNames[i] + "=" + parameterValues[i]);
         }
         window.location.href = newQuery;
+    }
+    /**
+     * Sets all user repositories as suggestion in the repository field
+     */
+    setUserRepositories() {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            let username = (_a = document.getElementById("username")) === null || _a === void 0 ? void 0 : _a.value;
+            let repositoryList = document.getElementById("repository-list");
+            let response = yield fetch(this.apiRoot + "users/" + username + "/repos");
+            if (response.ok == true) {
+                let data = yield response.json();
+                repositoryList.innerHTML = "";
+                data.forEach((element) => {
+                    let option = document.createElement('option');
+                    option.value = element.name;
+                    repositoryList.appendChild(option);
+                });
+            }
+        });
     }
     /**
      * Invoked when the Get Stats Button is clicked and  gets all information of a repository
