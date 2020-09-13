@@ -6,7 +6,7 @@ class Main {
      * Intializes a new instance of Main
      */
     constructor() {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         /**
          * Root address to the github api
          */
@@ -14,21 +14,31 @@ class Main {
         this.validateUserInput();
         // Setup form event handlers
         (_a = document.getElementById("username")) === null || _a === void 0 ? void 0 : _a.addEventListener("keyup", this.validateUserInput);
-        (_b = document.getElementById("repository")) === null || _b === void 0 ? void 0 : _b.addEventListener("keyup", this.validateUserInput);
+        (_b = document.getElementById("username")) === null || _b === void 0 ? void 0 : _b.addEventListener("keyup", (e) => {
+            if (e.keyCode == 13) {
+                this.onEnterPressed();
+            }
+        });
+        (_c = document.getElementById("repository")) === null || _c === void 0 ? void 0 : _c.addEventListener("keyup", this.validateUserInput);
+        (_d = document.getElementById("repository")) === null || _d === void 0 ? void 0 : _d.addEventListener("keyup", (e) => {
+            if (e.keyCode == 13) {
+                this.onEnterPressed();
+            }
+        });
         // Setup search event handler
-        (_c = document.getElementById("get-stats-button")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", event => this.onGetStatsButtonClicked(event));
+        (_e = document.getElementById("get-stats-button")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", event => this.onGetStatsButtonClicked(event));
         // Setup page view
         let username = this.getQueryParameter("username");
         let repository = this.getQueryParameter("repository");
         if (username != "" && repository != "") {
-            (_d = document.getElementById("username")) === null || _d === void 0 ? void 0 : _d.setAttribute("value", username);
-            (_e = document.getElementById("repository")) === null || _e === void 0 ? void 0 : _e.setAttribute("value", repository);
+            (_f = document.getElementById("username")) === null || _f === void 0 ? void 0 : _f.setAttribute("value", username);
+            (_g = document.getElementById("repository")) === null || _g === void 0 ? void 0 : _g.setAttribute("value", repository);
             this.validateUserInput();
             // Get user repo's
             // GetStats
         }
         else {
-            (_f = document.getElementById("username")) === null || _f === void 0 ? void 0 : _f.focus();
+            (_h = document.getElementById("username")) === null || _h === void 0 ? void 0 : _h.focus();
         }
     }
     /**
@@ -99,6 +109,23 @@ class Main {
         let repository = (_b = document.getElementById("repository")) === null || _b === void 0 ? void 0 : _b.value;
         if (username != null && repository != null) {
             this.setQueryParameters(["username", "repository"], [username, repository]);
+        }
+    }
+    /**
+     * Invoked when the enter key is pressed and sets the focus to the next item
+     */
+    onEnterPressed() {
+        var _a;
+        let username = document.getElementById("username");
+        let repository = document.getElementById("repository");
+        if (!(username === null || username === void 0 ? void 0 : username.value)) {
+            username === null || username === void 0 ? void 0 : username.focus();
+        }
+        else if (!(repository === null || repository === void 0 ? void 0 : repository.value)) {
+            repository === null || repository === void 0 ? void 0 : repository.focus();
+        }
+        else {
+            (_a = document.getElementById("get-stats-button")) === null || _a === void 0 ? void 0 : _a.click();
         }
     }
 }

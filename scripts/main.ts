@@ -15,7 +15,17 @@ class Main {
 
         // Setup form event handlers
         (document.getElementById("username") as HTMLInputElement)?.addEventListener("keyup", this.validateUserInput);
+        (document.getElementById("username") as HTMLInputElement)?.addEventListener("keyup", (e: KeyboardEvent) => {
+            if(e.keyCode == 13) {
+                this.onEnterPressed();
+            }
+        });
         (document.getElementById("repository") as HTMLInputElement)?.addEventListener("keyup", this.validateUserInput);
+        (document.getElementById("repository") as HTMLInputElement)?.addEventListener("keyup", (e: KeyboardEvent) => {
+            if(e.keyCode == 13) {
+                this.onEnterPressed();
+            }
+        });
 
         // Setup search event handler
         (document.getElementById("get-stats-button") as HTMLButtonElement)?.addEventListener("click", event => this.onGetStatsButtonClicked(event));
@@ -114,6 +124,24 @@ class Main {
 
         if(username != null && repository != null) {
             this.setQueryParameters(["username", "repository"],[username, repository]);
+        }
+    }
+
+    /**
+     * Invoked when the enter key is pressed and sets the focus to the next item
+     */
+    private onEnterPressed(): void {
+        let username = (document.getElementById("username") as HTMLInputElement);
+        let repository = (document.getElementById("repository") as HTMLInputElement);
+
+        if(!username?.value) {
+            username?.focus();
+        }
+        else if(!repository?.value) {
+            repository?.focus();
+        }
+        else {
+            (document.getElementById("get-stats-button") as HTMLButtonElement)?.click();
         }
     }
 }
