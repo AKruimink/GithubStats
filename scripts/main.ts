@@ -29,7 +29,6 @@ class Main {
             }
         });
 
-
         // Setup search event handler
         (document.getElementById("get-stats-button") as HTMLButtonElement)?.addEventListener("click", event => this.onGetStatsButtonClicked(event));
 
@@ -41,14 +40,15 @@ class Main {
             (document.getElementById("username") as HTMLInputElement)?.setAttribute("value", username);
             (document.getElementById("repository") as HTMLInputElement)?.setAttribute("value", repository);
             this.validateUserInput();
-
-            // Get user repo's
-            // GetStats
+            this.setUserRepositories();
+            this.getStats();
         }
         else {
             (document.getElementById("username") as HTMLInputElement)?.focus();
         }
     }
+
+
 
     /**
      * Validates the user input
@@ -116,6 +116,47 @@ class Main {
         }
 
         window.location.href = newQuery;
+    }
+
+    /**
+     * 
+     */
+    public async getStats(): Promise<void> {
+        let repositoryUrl: string = this.apiRoot + "repos/" + 
+                                    (document.getElementById("username") as HTMLInputElement)?.value + "/" + 
+                                    (document.getElementById("repository") as HTMLInputElement)?.value
+        let repositoryData: Response = await fetch(repositoryUrl);
+        
+
+        let error: boolean = false;
+        let errorMessage: string = "";
+
+        if(repositoryData.status == 404) {
+            error = true;
+            errorMessage = "This account or project does not exist!";
+        }
+        
+        if(repositoryData.status == 403) {
+            error = true;
+            errorMessage = "You've exeeded Github's rate limit. <br/> Please try again later."
+        }
+
+        let html: string = "";
+
+        if(error) {
+            html += "<div class='alert alert-danger'>" + errorMessage + "</div>";
+        }
+        else {
+            // Do other stuff
+        }
+
+        let result: HTMLDivElement = document.getElementById("stats-result") as HTMLDivElement;
+        result.innerHTML = html;
+
+        //let releaseData: Response = await fetch(repositoryUrl + "/releases") ;
+        // let html: string = "<div class='col-md-6 col-md-offset-3 alert alert-danger output'>Printed Error</div>";
+        // 
+        // result.innerHTML = html;
     }
 
     /**

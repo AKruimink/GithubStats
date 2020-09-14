@@ -45,8 +45,8 @@ class Main {
             (_h = document.getElementById("username")) === null || _h === void 0 ? void 0 : _h.setAttribute("value", username);
             (_j = document.getElementById("repository")) === null || _j === void 0 ? void 0 : _j.setAttribute("value", repository);
             this.validateUserInput();
-            // Get user repo's
-            // GetStats
+            this.setUserRepositories();
+            this.getStats();
         }
         else {
             (_k = document.getElementById("username")) === null || _k === void 0 ? void 0 : _k.focus();
@@ -110,6 +110,35 @@ class Main {
             newQuery = newQuery.concat(parameterNames[i] + "=" + parameterValues[i]);
         }
         window.location.href = newQuery;
+    }
+    /**
+     *
+     */
+    getStats() {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            let repositoryUrl = this.apiRoot + "repos/" + ((_a = document.getElementById("username")) === null || _a === void 0 ? void 0 : _a.value) + "/" + ((_b = document.getElementById("repository")) === null || _b === void 0 ? void 0 : _b.value);
+            let repositoryData = yield fetch(repositoryUrl);
+            let error = false;
+            let errorMessage = "";
+            if (repositoryData.status == 404) {
+                error = true;
+                errorMessage = "This account or project does not exist!";
+            }
+            if (repositoryData.status == 403) {
+                error = true;
+                errorMessage = "You've exeeded Github's rate limit. <br/> Please try again later.";
+            }
+            let html = "";
+            if (error) {
+                html += "<div class='alert alert-danger'>" + errorMessage + "</div>";
+            }
+            else {
+                // Do other stuff
+            }
+            let result = document.getElementById("stats-result");
+            result.innerHTML = html;
+        });
     }
     /**
      * Sets all user repositories as suggestion in the repository field
