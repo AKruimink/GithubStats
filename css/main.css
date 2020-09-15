@@ -52,6 +52,11 @@ hr {
     border-top:  1px solid #eeeeee;
 }
 
+.container {
+    min-height: 100vh;
+    position: relative;
+}
+
 .navbar {
     display: flex;
     flex-direction: row;
@@ -82,16 +87,12 @@ hr {
     font-size: 14px;
 }
 
-.container {
-    display: grid;
-    grid-template-columns: 2fr 3fr 2fr;
-}
-
 .content-column {
     grid-column: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-bottom: 40px;
 }
 
 #search {
