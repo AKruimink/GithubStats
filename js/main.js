@@ -118,23 +118,96 @@ class Main {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             let repositoryUrl = this.apiRoot + "repos/" + ((_a = document.getElementById("username")) === null || _a === void 0 ? void 0 : _a.value) + "/" + ((_b = document.getElementById("repository")) === null || _b === void 0 ? void 0 : _b.value);
-            let repositoryData = yield fetch(repositoryUrl);
+            let repositoryResponse = yield fetch(repositoryUrl);
             let error = false;
             let errorMessage = "";
-            if (repositoryData.status == 404) {
+            if (repositoryResponse.status == 404) {
                 error = true;
                 errorMessage = "This account or project does not exist!";
             }
-            if (repositoryData.status == 403) {
+            if (repositoryResponse.status == 403) {
                 error = true;
                 errorMessage = "You've exeeded Github's rate limit. <br/> Please try again later.";
             }
             let html = "";
             if (error) {
-                html += "<div class='alert alert-danger'>" + errorMessage + "</div>";
+                html = html.concat("<div class='alert alert-danger output'>" + errorMessage + "</div>");
             }
             else {
-                // Do other stuff
+                let repositoryData = yield repositoryResponse.json();
+                let subscribers = repositoryData["subscribers_count"];
+                let startgazers = repositoryData["stargazers_count"];
+                let forks = repositoryData["forks_count"];
+                let releaseResponse = yield fetch(repositoryUrl + "/releases");
+                let releaseData = yield releaseResponse.json();
+                let isLatestRelease = true;
+                let totalDownloadCount = 0;
+                releaseData.forEach((element) => {
+                    let releaseTag = element.tag_name;
+                    let releaseBadge = "";
+                    let releaseClassNames = "release";
+                    let releaseUrl = element.html_url;
+                    let isPreRelease = element.prerelease;
+                    let releaseAssets = element.assets;
+                    let releaseDownloadCount = 0;
+                    let releaseAuthor = element.author;
+                    let releaseDate = element.published_at.split("T")[0];
+                    if (isPreRelease) {
+                        releaseBadge = "&nbsp;&nbsp;<span class='badge'>Pre-release</span>";
+                        releaseClassNames = releaseClassNames.concat(" pre-release");
+                    }
+                    else if (isLatestRelease) {
+                        releaseBadge = "&nbsp;&nbsp;<span class='badge'>latest release</span>";
+                        releaseClassNames = releaseClassNames.concat(" latest-release");
+                        isLatestRelease = false;
+                    }
+                    // Get download info
+                    // We get the download content first, even tho it's the last item displayed, just so we can grab the downloads used by the release info
+                    let downloadInfoHtml = "";
+                    if (releaseAssets.length > 0) {
+                        downloadInfoHtml = downloadInfoHtml.concat("<h4><span class='material-icons'>get_app</span>&nbsp;&nbsp;Download Info</h4>");
+                        downloadInfoHtml = downloadInfoHtml.concat("<ul>");
+                        releaseAssets.forEach((asset) => {
+                            let assetSize = (asset.size / 1048576.0).toFixed(2); // 1048576.0 == 1 mega byte
+                            let lastUpdate = asset.updated_at.split("T")[0];
+                            downloadInfoHtml = downloadInfoHtml.concat("<li><code>" + asset.name + "</code> (" + assetSize + "&nbsp;MiB) - "
+                                + "downloaded " + asset.download_count + "&nbsp;times - "
+                                + "Last updated on " + lastUpdate + "</li>");
+                            totalDownloadCount += asset.download_count;
+                            releaseDownloadCount += asset.download_count;
+                        });
+                        downloadInfoHtml = downloadInfoHtml.concat("</ul>");
+                    }
+                    // get version info
+                    let versionInfo = "";
+                    versionInfo = versionInfo.concat("<h3><span class='material-icons'>local_offer</span>&nbsp;&nbsp;"
+                        + "<a href='" + releaseUrl + "' target='_blank'>" + releaseTag + "</a>"
+                        + releaseBadge + "</h3>");
+                    versionInfo = versionInfo.concat("<hr class='release-hr'>");
+                    // get release info
+                    let releaseInfo = "";
+                    releaseInfo = releaseInfo.concat("<h4><span class='material-icons'>info</span>&nbsp;&nbsp;"
+                        + "Release Info</h4>");
+                    releaseInfo = releaseInfo.concat("<ul>");
+                    if (releaseAuthor != null) {
+                        releaseInfo = releaseInfo.concat("<li><span class='material-icons'>person</span>&nbsp;&nbsp;"
+                            + "Author: <a href='" + releaseAuthor.html_url + "'>@" + releaseAuthor.login + "</a></li>");
+                    }
+                    releaseInfo = releaseInfo.concat("<li><span class='material-icons'>calendar_today</span>&nbsp;&nbsp;"
+                        + "Published: " + releaseDate + "</li>");
+                    if (releaseDownloadCount > 0) {
+                        releaseInfo = releaseInfo.concat("<li><span class='material-icons'>get_app</span>&nbsp;&nbsp;"
+                            + "Downloads: " + releaseDownloadCount + "</li>");
+                    }
+                    releaseInfo = releaseInfo.concat("</ul>");
+                    // Setup inner html
+                    html = html.concat("<div class='output'>");
+                    html = html.concat("<div class='row " + releaseClassNames + "'>");
+                    html = html.concat(versionInfo);
+                    html = html.concat(releaseInfo);
+                    html = html.concat(downloadInfoHtml);
+                    html = html.concat("</div> </div>");
+                });
             }
             let result = document.getElementById("stats-result");
             result.innerHTML = html;
