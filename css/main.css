@@ -13,8 +13,16 @@ a:hover {
     text-decoration: underline;
 }
 
+code {
+    font-family: "Roboto", monospace;
+    color: inherit;
+    background-color: rgba(92, 100, 104, 0.1);
+    white-space: nowrap;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
+    font-size: 14px;
     color: rgb(200, 195, 188);
     background-color: rgb(24, 26, 27);
     scrollbar-color: #202324 #454a4d;
@@ -22,6 +30,14 @@ body {
 
 h1 {
     font-size: 36px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+h4 {
+    font-size: 18px;
 }
 
 hr {
@@ -217,6 +233,10 @@ hr {
     border-color: rgba(240, 173, 78, 0.4);
 }
 
+h4 .material-icons {
+    vertical-align: bottom;
+}
+
 .footer {
     position: absolute;
     bottom: 0px;
@@ -236,4 +256,20 @@ hr {
     .content-column {
         grid-column-start: span 3;
     }
+}
+
+.material-icons.md-18 { 
+    font-size: 18px; 
+}
+
+.material-icons.md-24 { 
+    font-size: 24px; 
+}
+
+.material-icons.md-36 { 
+    font-size: 36px; 
+}
+
+.material-icons.md-48 { 
+    font-size: 48px; 
 }
