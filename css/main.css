@@ -28,6 +28,11 @@ body {
     scrollbar-color: #202324 #454a4d;
 }
 
+h1, h3, h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 h1 {
     font-size: 36px;
 }
@@ -144,6 +149,8 @@ hr {
 #stats-result {
     margin-top: 50px;
     margin-bottom: 40px;
+    max-width: 550px;
+    align-self: center;
 }
 
 .alert {
@@ -152,8 +159,6 @@ hr {
     border-radius: 5px;
     font-size: 18px;
     border: 1px solid transparent;
-    margin-left: 25%;
-    width: 50%;
 }
 
 .alert-danger {
@@ -161,17 +166,6 @@ hr {
     color: rgb(194, 102, 100);
     background-color: rgb(56, 22, 22);
     border-color: rgb(89, 35, 43);
-}
-
-.badge {
-    min-width: 10px;
-    padding: 3px 7px;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1;
-    white-space: nowrap;
-    text-align: center;
-    border-radius: 10px;
 }
 
 .release {
@@ -197,6 +191,10 @@ hr {
 
 .release-hr {
     border-top-color: rgba(127, 140, 141, 0.4);
+}
+
+.release ul {
+    margin-left: 40px;
 }
 
 .latest-release {
@@ -235,6 +233,17 @@ hr {
 
 h4 .material-icons {
     vertical-align: bottom;
+}
+
+.badge {
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 10px;
 }
 
 .footer {
