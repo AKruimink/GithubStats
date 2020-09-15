@@ -1,0 +1,10 @@
+{
+    "compilerOptions":{
+        "noImplicitAny":false,
+        "noEmitOnError":true,
+        "sourceMap":true,
+        "target":"ES6",
+        "outDir": "../js/"
+    },
+    "compileOnSave": true
+}
