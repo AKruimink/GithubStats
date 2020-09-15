@@ -165,7 +165,7 @@ class Main {
                     // We get the download content first, even tho it's the last item displayed, just so we can grab the downloads used by the release info
                     let downloadInfoHtml = "";
                     if (releaseAssets.length > 0) {
-                        downloadInfoHtml = downloadInfoHtml.concat("<h4><span class='material-icons'>get_app</span>&nbsp;&nbsp;Download Info</h4>");
+                        downloadInfoHtml = downloadInfoHtml.concat("<h4><span class='material-icons md-24'>get_app</span>&nbsp;&nbsp;Download Info</h4>");
                         downloadInfoHtml = downloadInfoHtml.concat("<ul>");
                         releaseAssets.forEach((asset) => {
                             let assetSize = (asset.size / 1048576.0).toFixed(2); // 1048576.0 == 1 mega byte
@@ -180,25 +180,25 @@ class Main {
                     }
                     // get version info
                     let versionInfo = "";
-                    versionInfo = versionInfo.concat("<h3><span class='material-icons'>local_offer</span>&nbsp;&nbsp;"
+                    versionInfo = versionInfo.concat("<h3><span class='material-icons md-24'>local_offer</span>&nbsp;&nbsp;"
                         + "<a href='" + releaseUrl + "' target='_blank'>" + releaseTag + "</a>"
                         + releaseBadge + "</h3>");
                     versionInfo = versionInfo.concat("<hr class='release-hr'>");
                     // get release info
                     let releaseInfo = "";
-                    releaseInfo = releaseInfo.concat("<h4><span class='material-icons'>info</span>&nbsp;&nbsp;"
+                    releaseInfo = releaseInfo.concat("<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
                         + "Release Info</h4>");
                     releaseInfo = releaseInfo.concat("<ul>");
                     if (releaseAuthor != null) {
-                        releaseInfo = releaseInfo.concat("<li><span class='material-icons'>person</span>&nbsp;&nbsp;"
+                        releaseInfo = releaseInfo.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;"
                             + "Author: <a href='" + releaseAuthor.html_url + "'>@" + releaseAuthor.login + "</a></li>");
                     }
-                    releaseInfo = releaseInfo.concat("<li><span class='material-icons'>calendar_today</span>&nbsp;&nbsp;"
-                        + "Published: " + releaseDate + "</li>");
                     if (releaseDownloadCount > 0) {
-                        releaseInfo = releaseInfo.concat("<li><span class='material-icons'>get_app</span>&nbsp;&nbsp;"
+                        releaseInfo = releaseInfo.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;"
                             + "Downloads: " + releaseDownloadCount + "</li>");
                     }
+                    releaseInfo = releaseInfo.concat("<li><span class='material-icons md-18'>calendar_today</span>&nbsp;&nbsp;"
+                        + "Published: " + releaseDate + "</li>");
                     releaseInfo = releaseInfo.concat("</ul>");
                     // Setup inner html
                     html = html.concat("<div class='output'>");
