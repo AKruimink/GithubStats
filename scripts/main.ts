@@ -199,8 +199,9 @@ class Main {
     }
 
     /**
-     * 
-     * @param repository 
+     * Gets the info of a given repository as an HTML element
+     * @param repository Repository used to create the info element with
+     * Returns a string containing the repository info as an HTML element
      */
     private getRepositoryInfoAsHtml(repository: any): string {
         let returnHtml: string = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
@@ -223,9 +224,10 @@ class Main {
     }
 
     /**
-     * 
-     * @param repository 
-     * @param totalDownloads 
+     * Gets the stats info of a given repository as an HTML element
+     * @param repository Repository used to create the stats element with
+     * @param totalDownloads Total amount of downloads the repository has
+     * Returns a string containing the repository stats as an HTML element
      */
     private getRepositoryStatsAsHtml(repository: any, totalDownloads: number): string {
         let returnHtml: string = "<h4><span class='material-icons md-24'>leaderboard</span>&nbsp;&nbsp;"
@@ -269,6 +271,7 @@ class Main {
      * Gets the release info of a release as a HTML element
      * @param release Release used to create the release info element
      * @param downloadCount Amount of downloads the release has
+     * Returns a string containing the release info as an HTML element
      */
     private getReleaseInfoAsHtml(release: any, downloadCount: number = 0): string {
         let returnHtml: string = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
