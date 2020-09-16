@@ -1,9 +1,9 @@
 <!-- Markdown doesnt like aligning stuff -->
 <div align="center">
-    <a href="https://github.com/AKruimink/GithubStats">
+    <a href="https://akruimink.github.io/GithubStats">
         <img alt="GithubStats" height="200" width="200" src="./docs/logo.png">
     </a>
-    <h1> <a href="https://akruimink.github.io/GithubStats/" target="_blank">Github Stats</a></h1>
+    <h1> Github Stats</h1>
     <p>
         A simple site that makes it easy to quickly observe the stats of any Github repository.
     </p>
