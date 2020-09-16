@@ -154,6 +154,16 @@ hr {
     align-self: center;
 }
 
+#project-stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#project-stats h4 {
+    font-size: 16px;
+}
+
 .alert {
     padding: 15px;
     margin-bottom: 20px;
