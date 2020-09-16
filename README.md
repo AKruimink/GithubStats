@@ -20,6 +20,13 @@ Want to see the amount of downloads a release received? Github Stats!
 Maybe interested in the total download count, the amount of watchers, stargazers or forks? Github Stats!
 Anything you might want to know about a project in a simple and concisely form factor by Github Stats!
 
+## Faq
+**Why was Github Stats made?**
+> There are basicly two reasons for the creation.
+> - [WinReform](https://github.com/AKruimink/WinReform) had just gotton released and had a hard time finding out the amount of downloads it had obtained without manualy using the Github Api.
+> - In an attempt to improve my web development skill as well as to experiment with TypeScript.
+
+
 ## License
 Github Stats is provided as-is under the Apache License Version 2.0. For more information see [LICENSE](./LICENSE.md).
 
