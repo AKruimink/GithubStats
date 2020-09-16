@@ -117,7 +117,7 @@ class Main {
     }
 
     /**
-     * 
+     * Gets and displays all project stats of the current username and repository
      */
     public async getStats(): Promise<void> {
         let repositoryUrl: string = this.apiRoot + "repos/" + 
@@ -177,19 +177,67 @@ class Main {
                     releaseClassNames = releaseClassNames.concat(" pre-release");
                 }
 
-                html = html.concat("<div class='output'>"
-                                    + "<div class='row " + releaseClassNames + "'>");
+                html = html.concat("<div class='row " + releaseClassNames + "'>");
                 html = html.concat(releaseLabelHtml);
                 html = html.concat(releaseInfoHtml);
                 html = html.concat(downloadInfoHtml);
-                html = html.concat("</div></div>");
+                html = html.concat("</div>");
             });
 
-            // get the project stats (should be added  before the release html = project stats + html)
+            // get the project stats
+            let repositoryInfoHtml: string =  "<div class='row repository'>";
+            repositoryInfoHtml = repositoryInfoHtml.concat(this.getRepositoryInfoAsHtml(repositoryData));
+            repositoryInfoHtml = repositoryInfoHtml.concat(this.getRepositoryStatsAsHtml(repositoryData, totalDownloads));
+            repositoryInfoHtml = repositoryInfoHtml.concat("</div>");
+
+            // Set all the stats informaton
+            html = repositoryInfoHtml.concat(html);
         }
 
         let result: HTMLDivElement = document.getElementById("stats-result") as HTMLDivElement;
         result.innerHTML = html;
+    }
+
+    /**
+     * 
+     * @param repository 
+     */
+    private getRepositoryInfoAsHtml(repository: any): string {
+        let returnHtml: string = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
+                                    + "Repository Info</h4><ul>";
+        
+        if(repository.owner != null) {
+           returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" 
+                                           + "Owner: <a href='" + repository.owner.url + "'>@" + repository.owner.login + "</a></li>");
+        }
+
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" 
+                                           + "Repository: <a href='" + repository.url + "'>@" + repository.name + "</a></li>");
+        
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>description</span>&nbsp;&nbsp;" 
+                                           + "Description: " + repository.description + "</li></ul>");
+
+        return returnHtml;
+    }
+
+    /**
+     * 
+     * @param repository 
+     * @param totalDownloads 
+     */
+    private getRepositoryStatsAsHtml(repository: any, totalDownloads: number): string {
+        let returnHtml: string = "<h4><span class='material-icons md-24'>leaderboard</span>&nbsp;&nbsp;"
+                                    + "Repository Stats</h4><ul>";
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>visibility</span>&nbsp;&nbsp;" 
+                                    + "Watchers: " + repository.subscribers_count + "</li>");
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>star_border</span>&nbsp;&nbsp;" 
+                                    + "Stargazers: " + repository.stargazers_count + "</li>");
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>call_split</span>&nbsp;&nbsp;" 
+                                    + "Forks: " + repository.forks_count + "</li>");
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;" 
+                                    + "Total Downloads: " + totalDownloads +"</li></ul>");
+
+        return returnHtml;
     }
 
     /**
