@@ -52,6 +52,10 @@ hr {
     border-top:  1px solid #eeeeee;
 }
 
+ul {
+    margin-left: 40px;
+}
+
 .container {
     min-height: 100vh;
     position: relative;
@@ -169,7 +173,7 @@ hr {
     border-color: rgb(89, 35, 43);
 }
 
-.release {
+.node {
     background-color: rgba(92, 100, 104, 0.1);;
     border: 1px solid rgba(127, 140, 141, 0.4);
     padding: 20px;
@@ -177,25 +181,27 @@ hr {
     margin-bottom: 10px;
 }
 
-.release h3 .material-icons {
+.node h3 .material-icons {
     cursor: default;
     color: rgba(66, 139, 202, 1);
     vertical-align: bottom;
 }
 
-.release h3 .badge {
+.node h3 .badge {
     cursor: default;
     background-color: rgba(66, 139, 202, 1);
     color: rgb(232, 230, 227);
     vertical-align: middle;
 }
 
-.release-hr {
+.node-hr {
     border-top-color: rgba(127, 140, 141, 0.4);
 }
 
-.release ul {
-    margin-left: 40px;
+.repository {
+    margin-bottom: 50px;
+    background-color: rgba(40, 94, 142, 0.2);
+    border-color: rgba(44, 104, 156, 0.4);
 }
 
 .latest-release {

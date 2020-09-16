@@ -117,7 +117,7 @@ class Main {
     }
 
     /**
-     * 
+     * Gets and displays all project stats of the current username and repository
      */
     public async getStats(): Promise<void> {
         let repositoryUrl: string = this.apiRoot + "repos/" + 
@@ -125,7 +125,6 @@ class Main {
                                     (document.getElementById("repository") as HTMLInputElement)?.value
         let repositoryResponse: Response = await fetch(repositoryUrl);
         
-
         let error: boolean = false;
         let errorMessage: string = "";
 
@@ -146,101 +145,179 @@ class Main {
         }
         else {   
             let repositoryData: any[] = await repositoryResponse.json();
-            let subscribers: number = repositoryData["subscribers_count"];
-            let startgazers: number = repositoryData["stargazers_count"];
-            let forks: number = repositoryData["forks_count"];
+            let isLatestRelease: boolean = true;
+            let totalDownloads: number = 0;
 
             let releaseResponse: Response = await fetch(repositoryUrl + "/releases");
             let releaseData: any[] = await releaseResponse.json();
 
-            let isLatestRelease: boolean = true;
-            let totalDownloadCount: number = 0;
+            // get the information of each release
+            releaseData.forEach((release) => {
 
-            releaseData.forEach((element) => {
-                let releaseTag: string = element.tag_name;
-                let releaseBadge: string = "";
-                let releaseClassNames: string = "release";
-                let releaseUrl: string = element.html_url;
-                let isPreRelease: boolean = element.prerelease;
-                let releaseAssets: any[] = element.assets;
-                let releaseDownloadCount: number = 0;
-                let releaseAuthor: any = element.author;
-                let releaseDate: Date = element.published_at.split("T")[0];
+                // get the download information
+                let downloadInfoHtml: string = "";
+                let downloadHtmlResult: any[] = this.getDownloadInfoAsHtml(release.assets);
 
-                if(isPreRelease) {
-                    releaseBadge = "&nbsp;&nbsp;<span class='badge'>Pre-release</span>"
-                    releaseClassNames = releaseClassNames.concat(" pre-release");
-                }
-                else if(isLatestRelease) {
-                    releaseBadge = "&nbsp;&nbsp;<span class='badge'>latest release</span>"
+                downloadInfoHtml = downloadInfoHtml.concat(downloadHtmlResult[1]);
+                totalDownloads += downloadHtmlResult[0];
+
+                // get the release label
+                let releaseLabelHtml: string = this.getReleasesLabelAsHtml(release, isLatestRelease);
+
+                // get the release info
+                let releaseInfoHtml: string = this.getReleaseInfoAsHtml(release, downloadHtmlResult[0]);
+
+                // add the release to the html
+                let releaseClassNames: string = "node";
+                if(isLatestRelease) {
                     releaseClassNames = releaseClassNames.concat(" latest-release");
                     isLatestRelease = false;
                 }
-
-                // Get download info
-                // We get the download content first, even tho it's the last item displayed, just so we can grab the downloads used by the release info
-                let downloadInfoHtml: string = "";
-                if(releaseAssets.length > 0) {
-                    downloadInfoHtml = downloadInfoHtml.concat("<h4><span class='material-icons md-24'>get_app</span>&nbsp;&nbsp;Download Info</h4>");
-                    downloadInfoHtml = downloadInfoHtml.concat("<ul>");
-            
-                    releaseAssets.forEach((asset) => {
-                        let assetSize: string = (asset.size / 1048576.0).toFixed(2); // 1048576.0 == 1 mega byte
-                        let lastUpdate: Date = asset.updated_at.split("T")[0];
-                
-                        downloadInfoHtml = downloadInfoHtml.concat("<li><code>"+ asset.name + "</code> (" + assetSize + "&nbsp;MiB) - "
-                                                                 + "downloaded " + asset.download_count + "&nbsp;times - "
-                                                                 + "Last updated on " + lastUpdate + "</li>");
-                        totalDownloadCount += asset.download_count;
-                        releaseDownloadCount += asset.download_count;
-                    });
-
-                    downloadInfoHtml = downloadInfoHtml.concat("</ul>");
-                }
-                
-                // get version info
-                let versionInfo: string = "";
-                versionInfo = versionInfo.concat("<h3><span class='material-icons md-24'>local_offer</span>&nbsp;&nbsp;"
-                                               + "<a href='" + releaseUrl + "' target='_blank'>" + releaseTag + "</a>"
-                                               + releaseBadge + "</h3>");
-                versionInfo = versionInfo.concat("<hr class='release-hr'>");
-
-                // get release info
-                let releaseInfo: string = "";
-                releaseInfo = releaseInfo.concat("<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
-                                               + "Release Info</h4>");
-                releaseInfo = releaseInfo.concat("<ul>");
-
-                if(releaseAuthor != null) {
-                    releaseInfo = releaseInfo.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;"
-                                                   + "Author: <a href='" + releaseAuthor.html_url + "'>@" + releaseAuthor.login + "</a></li>");
+                else if(release.prerelease) {
+                    releaseClassNames = releaseClassNames.concat(" pre-release");
                 }
 
-                if(releaseDownloadCount > 0) {
-                    releaseInfo = releaseInfo.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;"
-                                                   + "Downloads: " + releaseDownloadCount + "</li>");
-                }
-
-                releaseInfo = releaseInfo.concat("<li><span class='material-icons md-18'>calendar_today</span>&nbsp;&nbsp;"
-                                               + "Published: " + releaseDate + "</li>");
-               
-                releaseInfo = releaseInfo.concat("</ul>");
-
-                // Setup inner html
-                html = html.concat("<div class='output'>");
                 html = html.concat("<div class='row " + releaseClassNames + "'>");
-                html = html.concat(versionInfo);
-                html = html.concat(releaseInfo);
+                html = html.concat(releaseLabelHtml);
+                html = html.concat(releaseInfoHtml);
                 html = html.concat(downloadInfoHtml);
-                html = html.concat("</div> </div>");
-               
-               
+                html = html.concat("</div>");
             });
+
+            // get the project stats
+            let repositoryInfoHtml: string =  "<div class='row node repository'>";
+            repositoryInfoHtml = repositoryInfoHtml.concat(this.getRepositoryInfoAsHtml(repositoryData));
+            repositoryInfoHtml = repositoryInfoHtml.concat(this.getRepositoryStatsAsHtml(repositoryData, totalDownloads));
+            repositoryInfoHtml = repositoryInfoHtml.concat("</div>");
+
+            // Set all the stats informaton
+            html = repositoryInfoHtml.concat(html);
         }
 
         let result: HTMLDivElement = document.getElementById("stats-result") as HTMLDivElement;
         result.innerHTML = html;
     }
+
+    /**
+     * Gets the info of a given repository as an HTML element
+     * @param repository Repository used to create the info element with
+     * Returns a string containing the repository info as an HTML element
+     */
+    private getRepositoryInfoAsHtml(repository: any): string {
+        let returnHtml: string = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
+                                    + "Repository Info</h4><ul>";
+        
+        if(repository.owner != null) {
+           returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" 
+                                           + "Owner: <a href='" + repository.owner.url + "'>@" + repository.owner.login + "</a></li>");
+        }
+
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" 
+                                           + "Repository: <a href='" + repository.url + "'>@" + repository.name + "</a></li>");
+        
+        if(repository.description != null) {
+            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>description</span>&nbsp;&nbsp;" 
+                                            + "Description: " + repository.description + "</li></ul>");
+        }
+
+        return returnHtml;
+    }
+
+    /**
+     * Gets the stats info of a given repository as an HTML element
+     * @param repository Repository used to create the stats element with
+     * @param totalDownloads Total amount of downloads the repository has
+     * Returns a string containing the repository stats as an HTML element
+     */
+    private getRepositoryStatsAsHtml(repository: any, totalDownloads: number): string {
+        let returnHtml: string = "<h4><span class='material-icons md-24'>leaderboard</span>&nbsp;&nbsp;"
+                                    + "Repository Stats</h4><ul>";
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>visibility</span>&nbsp;&nbsp;" 
+                                    + "Watchers: " + repository.subscribers_count + "</li>");
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>star_border</span>&nbsp;&nbsp;" 
+                                    + "Stargazers: " + repository.stargazers_count + "</li>");
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>call_split</span>&nbsp;&nbsp;" 
+                                    + "Forks: " + repository.forks_count + "</li>");
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;" 
+                                    + "Total Downloads: " + totalDownloads +"</li></ul>");
+
+        return returnHtml;
+    }
+
+    /**
+     * Gets a label of a release as a HTML element
+     * @param release Release used to create the label with
+     * @param isLatestRelease Indication if the release being made is the latest release
+     * Returns the release label as a html string
+     */
+    private getReleasesLabelAsHtml(release: any, isLatestRelease: boolean = false): string {
+        let releaseBadge: string = "";
+        
+        if(isLatestRelease) {
+            releaseBadge = "&nbsp;&nbsp;<span class='badge'>Latest-release</span>";
+        }
+        else if(release.prerelease) {
+            releaseBadge = "&nbsp;&nbsp;<span class='badge'>Pre-release</span>";
+        }
+
+        let returnHtml: string = "<h3><span class='material-icons md-24'>local_offer</span>&nbsp;&nbsp;"
+                                    + "<a href='" + release.html_url + "' target='_blank'>" + release.tag_name + "</a>"
+                                    + releaseBadge + "</h3>";
+        returnHtml = returnHtml.concat("<hr class='node-hr'>");
+        return returnHtml;
+    }
+
+    /**
+     * Gets the release info of a release as a HTML element
+     * @param release Release used to create the release info element
+     * @param downloadCount Amount of downloads the release has
+     * Returns a string containing the release info as an HTML element
+     */
+    private getReleaseInfoAsHtml(release: any, downloadCount: number = 0): string {
+        let returnHtml: string = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
+                                    + "Release Info</h4><ul>";
+
+        if(release.author != null) {
+            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" 
+                                            + "Author: <a href='" + release.author.html_url + "'>@" + release.author.login + "</a></li>");
+        }
+       
+        if(downloadCount > 0) {
+            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;"
+                                             + "Downloads: " + downloadCount + "</li>");
+        }
+
+        returnHtml = returnHtml.concat("</ul>");
+        return returnHtml;
+    }
+
+    /**
+     * Gets the download info of a release as a HTML elemenet
+     * @param assets Array containing all releases and asset info
+     * Returns an array containing the total amount of downloads and the download info as a html string, 
+     * an empty string is returned when there is no download info
+     */
+    private getDownloadInfoAsHtml(assets: any[]): any[] {
+        if(assets.length > 0) {
+            let releaseDownloadCount: number = 0;
+            let returnHtml: string = "<h4><span class='material-icons md-24'>get_app</span>&nbsp;&nbsp;" 
+                                        + "Download Info</h4><ul>";
+
+            assets.forEach((asset) => {
+                let assetSize: string = (asset.size / 1048576.0).toFixed(2); // 1048576.0 == 1 mega byte
+                let lastUpdate: Date = asset.updated_at.split("T")[0];
+
+                returnHtml = returnHtml.concat("<li><code>" + asset.name + "</code> (" + assetSize + "&nbsp;MiB) " 
+                                                + "- Downloaded " + asset.download_count + "&nbsp;times "
+                                                + "- Last updated on " + lastUpdate + "</li>");
+                releaseDownloadCount += asset.download_count;
+            });
+
+            returnHtml = returnHtml.concat("</ul>");
+            return [releaseDownloadCount, returnHtml];
+        }
+        return [0, ""];
+    } 
 
     /**
      * Sets all user repositories as suggestion in the repository field
