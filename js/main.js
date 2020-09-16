@@ -151,7 +151,7 @@ class Main {
                     // get the release info
                     let releaseInfoHtml = this.getReleaseInfoAsHtml(release, downloadHtmlResult[0]);
                     // add the release to the html
-                    let releaseClassNames = "release";
+                    let releaseClassNames = "node";
                     if (isLatestRelease) {
                         releaseClassNames = releaseClassNames.concat(" latest-release");
                         isLatestRelease = false;
@@ -166,7 +166,7 @@ class Main {
                     html = html.concat("</div>");
                 });
                 // get the project stats
-                let repositoryInfoHtml = "<div class='row repository'>";
+                let repositoryInfoHtml = "<div class='row node repository'>";
                 repositoryInfoHtml = repositoryInfoHtml.concat(this.getRepositoryInfoAsHtml(repositoryData));
                 repositoryInfoHtml = repositoryInfoHtml.concat(this.getRepositoryStatsAsHtml(repositoryData, totalDownloads));
                 repositoryInfoHtml = repositoryInfoHtml.concat("</div>");
@@ -229,7 +229,7 @@ class Main {
         let returnHtml = "<h3><span class='material-icons md-24'>local_offer</span>&nbsp;&nbsp;"
             + "<a href='" + release.html_url + "' target='_blank'>" + release.tag_name + "</a>"
             + releaseBadge + "</h3>";
-        returnHtml = returnHtml.concat("<hr class='release-hr'>");
+        returnHtml = returnHtml.concat("<hr class='node-hr'>");
         return returnHtml;
     }
     /**
@@ -275,93 +275,6 @@ class Main {
         }
         return [0, ""];
     }
-    // /**
-    //  * 
-    //  * @param watchers 
-    //  * @param starsgazers 
-    //  * @param forks 
-    //  * @param totalDownloads 
-    //  */
-    // private getProjectStatsAsHtml(watchers: number, starsgazers: number, forks: number, totalDownloads: number): string {
-    //     let returnHtml: string = "<div id='project-stats'>";
-    //     returnHtml = returnHtml.concat("<h4><span class='material-icons md-18'>visibility</span>&nbsp;&nbsp;" 
-    //                                     + "Watchers: " + watchers + "" )
-    // }
-    //     // Get project stats
-    //     let projectStats: string = "";
-    //     projectStats = projectStats.concat("<div id='project-stats'>");
-    //     projectStats = projectStats.concat("<h4><span class='material-icons md-18'>visibility</span>&nbsp;&nbsp;");
-    //     projectStats = projectStats.concat("Watchers: " + watchers + "&nbsp;&nbsp;&nbsp;");
-    //     projectStats = projectStats.concat("<span class='material-icons md-18'>star_border</span>&nbsp;&nbsp;")
-    //     projectStats = projectStats.concat("Startgazers: " + startgazers + "&nbsp;&nbsp;&nbsp;");
-    //     projectStats = projectStats.concat("<span class='material-icons md-18'>call_split</span>&nbsp;&nbsp;")
-    //     projectStats = projectStats.concat("Forks: " + forks + "&nbsp;&nbsp;");
-    //     projectStats = projectStats.concat("<span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;")
-    //     projectStats = projectStats.concat("Downloads: " + totalDownloadCount);
-    //     projectStats = projectStats.concat("</div></h4>")
-    // let repositoryData: any[] = await repositoryResponse.json();
-    // let watchers: number = repositoryData["subscribers_count"];
-    // let startgazers: number = repositoryData["stargazers_count"];
-    // let forks: number = repositoryData["forks_count"];
-    // let releaseResponse: Response = await fetch(repositoryUrl + "/releases");
-    // let releaseData: any[] = await releaseResponse.json();
-    // let isLatestRelease: boolean = true;
-    // let totalDownloadCount: number = 0;
-    // releaseData.forEach((element) => {
-    //     let releaseTag: string = element.tag_name;
-    //     let releaseBadge: string = "";
-    //     let releaseClassNames: string = "release";
-    //     let releaseUrl: string = element.html_url;
-    //     let isPreRelease: boolean = element.prerelease;
-    //     let releaseAssets: any[] = element.assets;
-    //     let releaseDownloadCount: number = 0;
-    //     let releaseAuthor: any = element.author;
-    //     let releaseDate: Date = element.published_at.split("T")[0];
-    //     if(isPreRelease) {
-    //         releaseBadge = "&nbsp;&nbsp;<span class='badge'>Pre-release</span>"
-    //         releaseClassNames = releaseClassNames.concat(" pre-release");
-    //     }
-    //     else if(isLatestRelease) {
-    //         releaseBadge = "&nbsp;&nbsp;<span class='badge'>latest release</span>"
-    //         releaseClassNames = releaseClassNames.concat(" latest-release");
-    //         isLatestRelease = false;
-    //     }
-    //     // get version info
-    //     let versionInfo: string = "";
-    //     versionInfo = versionInfo.concat("<h3><span class='material-icons md-24'>local_offer</span>&nbsp;&nbsp;"
-    //                                    + "<a href='" + releaseUrl + "' target='_blank'>" + releaseTag + "</a>"
-    //                                    + releaseBadge + "</h3>");
-    //     versionInfo = versionInfo.concat("<hr class='release-hr'>");
-    //     // get release info
-    //     let releaseInfo: string = "";
-    //     releaseInfo = releaseInfo.concat("<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
-    //                                    + "Release Info</h4>");
-    //     releaseInfo = releaseInfo.concat("<ul>");
-    //     if(releaseAuthor != null) {
-    //         releaseInfo = releaseInfo.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;"
-    //                                        + "Author: <a href='" + releaseAuthor.html_url + "'>@" + releaseAuthor.login + "</a></li>");
-    //     }
-    //     if(releaseDownloadCount > 0) {
-    //         releaseInfo = releaseInfo.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;"
-    //                                        + "Downloads: " + releaseDownloadCount + "</li>");
-    //     }
-    //     releaseInfo = releaseInfo.concat("<li><span class='material-icons md-18'>calendar_today</span>&nbsp;&nbsp;"
-    //                                    + "Published: " + releaseDate + "</li>");
-    //     releaseInfo = releaseInfo.concat("</ul>");
-    //     // Setup inner html
-    //     html = html.concat("<div class='output'>");
-    //     html = html.concat("<div class='row " + releaseClassNames + "'>");
-    //     html = html.concat(versionInfo);
-    //     html = html.concat(releaseInfo);
-    //     html = html.concat(downloadInfoHtml);
-    //     html = html.concat("</div> </div>");
-    // });
-    //     // Add to the main html object
-    //     html = projectStats.concat(html);
-    //     }
-    //     let result: HTMLDivElement = document.getElementById("stats-result") as HTMLDivElement;
-    //     result.innerHTML = html;
-    // }
     /**
      * Sets all user repositories as suggestion in the repository field
      */

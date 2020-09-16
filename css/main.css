@@ -159,16 +159,6 @@ ul {
     align-self: center;
 }
 
-#project-stats {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-#project-stats h4 {
-    font-size: 16px;
-}
-
 .alert {
     padding: 15px;
     margin-bottom: 20px;
@@ -184,28 +174,7 @@ ul {
     border-color: rgb(89, 35, 43);
 }
 
-.repository {
-    background-color: rgba(92, 100, 104, 0.1);;
-    border: 1px solid rgba(127, 140, 141, 0.4);
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 40px;
-}
-
-.repository h3 .material-icons {
-    cursor: default;
-    color: rgba(66, 139, 202, 1);
-    vertical-align: bottom;
-}
-
-.repository h3 .badge {
-    cursor: default;
-    background-color: rgba(66, 139, 202, 1);
-    color: rgb(232, 230, 227);
-    vertical-align: middle;
-}
-
-.release {
+.node {
     background-color: rgba(92, 100, 104, 0.1);;
     border: 1px solid rgba(127, 140, 141, 0.4);
     padding: 20px;
@@ -213,24 +182,28 @@ ul {
     margin-bottom: 10px;
 }
 
-.release h3 .material-icons {
+.node h3 .material-icons {
     cursor: default;
     color: rgba(66, 139, 202, 1);
     vertical-align: bottom;
 }
 
-.release h3 .badge {
+.node h3 .badge {
     cursor: default;
     background-color: rgba(66, 139, 202, 1);
     color: rgb(232, 230, 227);
     vertical-align: middle;
 }
 
-.release-hr {
+.node-hr {
     border-top-color: rgba(127, 140, 141, 0.4);
 }
 
-
+.repository {
+    margin-bottom: 50px;
+    background-color: rgba(40, 94, 142, 0.2);
+    border-color: rgba(44, 104, 156, 0.4);
+}
 
 .latest-release {
     background-color: rgba(77, 133, 58, 0.2);
