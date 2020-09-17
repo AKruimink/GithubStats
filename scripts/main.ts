@@ -282,6 +282,10 @@ class Main {
                                             "Author: <a href='" + release.author.html_url + "'>@" + release.author.login + "</a></li>");
         }
        
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>date_range</span>&nbsp;&nbsp;" +
+                                        "Published: " + release.published_at.split("T")[0] + 
+                                        " (" + this.CalculateDays(new Date(release.published_at), new Date()) + " Days)</li>");
+
         if(downloadCount > 0) {
             returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;" +
                                             "Downloads: " + downloadCount + "</li>");
