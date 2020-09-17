@@ -210,7 +210,7 @@ class Main {
      */
     private getRepositoryInfoAsHtml(repository: any): string {
         let returnHtml: string = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;" +
-                                    "Repository Info</h4><ul class='repository-info'>>";
+                                    "Repository Info</h4><ul class='repository-info'>";
         
         if(repository.owner != null) {
            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" +
@@ -236,7 +236,7 @@ class Main {
      */
     private getRepositoryStatsAsHtml(repository: any, totalDownloads: number): string {
         let returnHtml: string = "<h4><span class='material-icons md-24'>leaderboard</span>&nbsp;&nbsp;" + 
-                                    "Repository Stats</h4><ul class='repository-stats'>>";
+                                    "Repository Stats</h4><ul class='repository-stats'>";
         returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>visibility</span>&nbsp;&nbsp;" + 
                                         "Watchers: " + repository.subscribers_count + "</li>");
         returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>star_border</span>&nbsp;&nbsp;" + 
@@ -280,7 +280,7 @@ class Main {
      */
     private getReleaseInfoAsHtml(release: any, downloadCount: number = 0): string {
         let returnHtml: string = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;" + 
-                                    "Release Info</h4><ul class='release-info'>>";
+                                    "Release Info</h4><ul class='release-info'>";
 
         if(release.author != null) {
             returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" + 
