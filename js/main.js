@@ -249,6 +249,9 @@ class Main {
             returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" +
                 "Author: <a href='" + release.author.html_url + "'>@" + release.author.login + "</a></li>");
         }
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>date_range</span>&nbsp;&nbsp;" +
+            "Published: " + release.published_at.split("T")[0] +
+            " (" + this.CalculateDays(new Date(release.published_at), new Date()) + " Days)</li>");
         if (downloadCount > 0) {
             returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;" +
                 "Downloads: " + downloadCount + "</li>");
@@ -300,6 +303,19 @@ class Main {
                 });
             }
         });
+    }
+    /**
+     * Calculate the amount of days between two dates
+     * @param firstDate The first date
+     * @param secondDate The second date
+     * Returns the amount of days between two dates
+     */
+    CalculateDays(firstDate, secondDate) {
+        let dayInMiliseconds = 24 * 60 * 60 * 1000; // Hours, Minutes, Seconds, Milliseconds
+        // Reset the times to midnight
+        firstDate.setHours(0, 0, 0, 0);
+        secondDate.setHours(0, 0, 0, 0);
+        return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / dayInMiliseconds));
     }
     /**
      * Invoked when the Get Stats Button is clicked and  gets all information of a repository
