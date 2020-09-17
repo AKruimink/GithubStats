@@ -270,9 +270,10 @@ class Main {
             assets.forEach((asset) => {
                 let assetSize = (asset.size / 1048576.0).toFixed(2); // 1048576.0 == 1 mega byte
                 let lastUpdate = asset.updated_at.split("T")[0];
-                returnHtml = returnHtml.concat("<li><code>" + asset.name + "</code> (" + assetSize + "&nbsp;MiB) "
-                    + "- Downloaded " + asset.download_count + "&nbsp;times "
-                    + "- Last updated on " + lastUpdate + "</li>");
+                returnHtml = returnHtml.concat("<li><code><a href='" + asset.browser_download_url + "' target='_self'>" +
+                    asset.name + "</a></code> (" + assetSize + "&nbsp;MiB) " +
+                    "- Downloaded " + asset.download_count + "&nbsp;times " +
+                    "- Last updated on " + lastUpdate + "</li>");
                 releaseDownloadCount += asset.download_count;
             });
             returnHtml = returnHtml.concat("</ul>");
