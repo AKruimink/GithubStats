@@ -28,7 +28,6 @@ hr {
 code {
     font-family: "Roboto", monospace;
     color: inherit;
-    background-color: rgba(92, 100, 104, 0.1);
     white-space: nowrap;
 }
 
