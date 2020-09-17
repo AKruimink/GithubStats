@@ -341,6 +341,22 @@ class Main {
     }
 
     /**
+     * Calculate the amount of days between two dates
+     * @param firstDate The first date
+     * @param secondDate The second date
+     * Returns the amount of days between two dates
+     */
+    private CalculateDays(firstDate: Date, secondDate: Date): number {
+        let dayInMiliseconds: number = 24 * 60 * 60 * 1000; // Hours, Minutes, Seconds, Milliseconds
+
+        // Reset the times to midnight
+        firstDate.setHours(0, 0, 0, 0);
+        secondDate.setHours(0, 0, 0, 0);
+
+        return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / dayInMiliseconds));
+    }
+
+    /**
      * Invoked when the Get Stats Button is clicked and  gets all information of a repository
      */
     private onGetStatsButtonClicked(eventArgs: Event): void{
