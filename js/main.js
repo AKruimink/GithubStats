@@ -139,6 +139,8 @@ class Main {
                 let totalDownloads = 0;
                 let releaseResponse = yield fetch(repositoryUrl + "/releases?page=1&per_page=100");
                 let releaseData = yield releaseResponse.json();
+                // Sort the releases by publish date
+                releaseData.sort((firstRelease, secondRelease) => new Date(firstRelease.published_at) < new Date(secondRelease.published_at) ? 1 : -1);
                 // get the information of each release
                 releaseData.forEach((release) => {
                     // get the download information

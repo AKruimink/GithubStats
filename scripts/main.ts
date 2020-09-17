@@ -151,6 +151,11 @@ class Main {
             let releaseResponse: Response = await fetch(repositoryUrl + "/releases?page=1&per_page=100");
             let releaseData: any[] = await releaseResponse.json();
 
+            // Sort the releases by publish date
+            releaseData.sort((firstRelease, secondRelease) => 
+                new Date(firstRelease.published_at) < new Date(secondRelease.published_at) ? 1 : -1
+            );
+
             // get the information of each release
             releaseData.forEach((release) => {
 
