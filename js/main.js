@@ -191,7 +191,7 @@ class Main {
             returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" +
                 "Owner: <a href='" + repository.owner.url + "'>@" + repository.owner.login + "</a></li>");
         }
-        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" +
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>folder_special</span>&nbsp;&nbsp;" +
             "Repository: <a href='" + repository.url + "'>@" + repository.name + "</a></li>");
         if (repository.description != null) {
             returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>description</span>&nbsp;&nbsp;" +
