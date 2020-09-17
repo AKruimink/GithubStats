@@ -122,8 +122,8 @@ class Main {
     public async getStats(): Promise<void> {
         let repositoryUrl: string = this.apiRoot + "repos/" + 
                                     (document.getElementById("username") as HTMLInputElement)?.value + "/" + 
-                                    (document.getElementById("repository") as HTMLInputElement)?.value
-        let repositoryResponse: Response = await fetch(repositoryUrl);
+                                    (document.getElementById("repository") as HTMLInputElement)?.value;
+        let repositoryResponse: Response = await fetch(repositoryUrl + "?page=1&per_page=100");
         
         let error: boolean = false;
         let errorMessage: string = "";
@@ -148,7 +148,7 @@ class Main {
             let isLatestRelease: boolean = true;
             let totalDownloads: number = 0;
 
-            let releaseResponse: Response = await fetch(repositoryUrl + "/releases");
+            let releaseResponse: Response = await fetch(repositoryUrl + "/releases?page=1&per_page=100");
             let releaseData: any[] = await releaseResponse.json();
 
             // get the information of each release
@@ -325,7 +325,7 @@ class Main {
     private async setUserRepositories(): Promise<void> {
         let username: string = (document.getElementById("username") as HTMLInputElement)?.value;
         let repositoryList: HTMLDataListElement = document.getElementById("repository-list") as HTMLDataListElement;
-        let response: Response = await fetch(this.apiRoot + "users/" + username + "/repos");
+        let response: Response = await fetch(this.apiRoot + "users/" + username + "/repos?page=1&per_page=100");
 
         if(response.ok == true) {
             let data: any[] = await response.json();
