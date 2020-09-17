@@ -227,6 +227,10 @@ ul {
     vertical-align: middle;
 }
 
+ .node .download-info li{
+    margin-bottom: 2px;
+}
+
 .node-hr {
     border-top-color: rgba(127, 140, 141, 0.4);
 }
