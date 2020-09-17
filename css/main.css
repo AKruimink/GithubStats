@@ -1,23 +1,11 @@
+/********************************/
+/*******Element Defaults*********/
+/********************************/
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-a {
-    text-decoration: none;
-    color: rgb(83, 153, 207);
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-code {
-    font-family: "Roboto", monospace;
-    color: inherit;
-    background-color: rgba(92, 100, 104, 0.1);
-    white-space: nowrap;
 }
 
 body {
@@ -28,6 +16,35 @@ body {
     scrollbar-color: #202324 #454a4d;
 }
 
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top:  1px solid #eeeeee;
+}
+
+
+/**********Text Styles***********/
+code {
+    font-family: "Roboto", monospace;
+    color: inherit;
+    background-color: rgba(92, 100, 104, 0.1);
+    white-space: nowrap;
+}
+
+
+/*************Links**************/
+a {
+    text-decoration: none;
+    color: rgb(83, 153, 207);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/************Headers*************/
 h1, h3, h4 {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -45,22 +62,25 @@ h4 {
     font-size: 18px;
 }
 
-hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top:  1px solid #eeeeee;
-}
 
+
+/*************Lists**************/
 ul {
     margin-left: 40px;
 }
 
+
+/********************************/
+/***********Container************/
+/********************************/
 .container {
     min-height: 100vh;
     position: relative;
 }
 
+/********************************/
+/********Navigation Bar**********/
+/********************************/
 .navbar {
     display: flex;
     flex-direction: row;
@@ -99,6 +119,10 @@ ul {
     padding-bottom: 40px;
 }
 
+
+/********************************/
+/**********Search Form***********/
+/********************************/
 #search {
     margin-top: 50px;
     align-self: center;
@@ -125,11 +149,15 @@ ul {
     box-shadow: rgba(20, 85, 136, 0.6) 0px 0px 8px;
 }
 
+
+/**********Form Input************/
 #username, #repository, #get-stats-button {
     margin-top: 10px;
     width: 100%;
 }
 
+
+/*********Form Button************/
 #get-stats-button {
     color: rgb(232, 230, 227);
     background-color: rgb(43, 102, 153);
@@ -151,6 +179,10 @@ ul {
     border-color: rgb(40, 95, 142);
 }
 
+
+/********************************/
+/**********Result Stats**********/
+/********************************/
 #stats-result {
     margin-top: 50px;
     margin-bottom: 40px;
@@ -173,6 +205,8 @@ ul {
     border-color: rgb(89, 35, 43);
 }
 
+
+/*********Default Node***********/
 .node {
     background-color: rgba(92, 100, 104, 0.1);;
     border: 1px solid rgba(127, 140, 141, 0.4);
@@ -198,12 +232,16 @@ ul {
     border-top-color: rgba(127, 140, 141, 0.4);
 }
 
+
+/********Repository Node*********/
 .repository {
     margin-bottom: 50px;
     background-color: rgba(40, 94, 142, 0.2);
     border-color: rgba(44, 104, 156, 0.4);
 }
 
+
+/******Latest Release Node*******/
 .latest-release {
     background-color: rgba(77, 133, 58, 0.2);
     border-color: rgba(52, 120, 52, 0.4);
@@ -221,6 +259,8 @@ ul {
     border-color: rgba(92, 184, 92, 0.4);
 }
 
+
+/********Pre Release Node********/
 .pre-release {
     background-color: rgba(240, 173, 78, 0.05);
     border-color: rgba(240, 173, 78, 0.4);
@@ -253,6 +293,10 @@ h4 .material-icons {
     border-radius: 10px;
 }
 
+
+/********************************/
+/************Footer**************/
+/********************************/
 .footer {
     position: absolute;
     bottom: 0px;
@@ -268,6 +312,10 @@ h4 .material-icons {
     color: #428bca;
 }
 
+
+/********************************/
+/**********Media Queries*********/
+/********************************/
 @media screen and (max-width: 1024px) {
     .content-column {
         grid-column-start: span 3;
