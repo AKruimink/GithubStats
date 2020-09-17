@@ -11,6 +11,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    line-height: 1.2;
     color: rgb(200, 195, 188);
     background-color: rgb(24, 26, 27);
     scrollbar-color: #202324 #454a4d;
@@ -227,8 +228,8 @@ ul {
     vertical-align: middle;
 }
 
- .node .download-info li{
-    margin-bottom: 2px;
+ .node .download-info .release-info li{
+    margin-bottom: 3px;
 }
 
 .node-hr {
@@ -281,9 +282,7 @@ ul {
     border-color: rgba(240, 173, 78, 0.4);
 }
 
-h4 .material-icons {
-    vertical-align: bottom;
-}
+
 
 .badge {
     min-width: 10px;
@@ -325,18 +324,26 @@ h4 .material-icons {
     }
 }
 
+
+/********************************/
+/**********Material Icon*********/
+/********************************/
 .material-icons.md-18 { 
     font-size: 18px; 
+    vertical-align: bottom;
 }
 
 .material-icons.md-24 { 
     font-size: 24px; 
+    vertical-align: bottom;
 }
 
 .material-icons.md-36 { 
     font-size: 36px; 
+    vertical-align: bottom;
 }
 
 .material-icons.md-48 { 
     font-size: 48px; 
+    vertical-align: bottom;
 }
