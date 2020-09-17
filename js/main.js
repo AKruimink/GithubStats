@@ -183,17 +183,17 @@ class Main {
      * Returns a string containing the repository info as an HTML element
      */
     getRepositoryInfoAsHtml(repository) {
-        let returnHtml = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
-            + "Repository Info</h4><ul>";
+        let returnHtml = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;" +
+            "Repository Info</h4><ul>";
         if (repository.owner != null) {
-            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;"
-                + "Owner: <a href='" + repository.owner.url + "'>@" + repository.owner.login + "</a></li>");
+            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" +
+                "Owner: <a href='" + repository.owner.url + "'>@" + repository.owner.login + "</a></li>");
         }
-        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;"
-            + "Repository: <a href='" + repository.url + "'>@" + repository.name + "</a></li>");
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" +
+            "Repository: <a href='" + repository.url + "'>@" + repository.name + "</a></li>");
         if (repository.description != null) {
-            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>description</span>&nbsp;&nbsp;"
-                + "Description: " + repository.description + "</li></ul>");
+            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>description</span>&nbsp;&nbsp;" +
+                "Description: " + repository.description + "</li></ul>");
         }
         return returnHtml;
     }
@@ -204,16 +204,16 @@ class Main {
      * Returns a string containing the repository stats as an HTML element
      */
     getRepositoryStatsAsHtml(repository, totalDownloads) {
-        let returnHtml = "<h4><span class='material-icons md-24'>leaderboard</span>&nbsp;&nbsp;"
-            + "Repository Stats</h4><ul>";
-        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>visibility</span>&nbsp;&nbsp;"
-            + "Watchers: " + repository.subscribers_count + "</li>");
-        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>star_border</span>&nbsp;&nbsp;"
-            + "Stargazers: " + repository.stargazers_count + "</li>");
-        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>call_split</span>&nbsp;&nbsp;"
-            + "Forks: " + repository.forks_count + "</li>");
-        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;"
-            + "Total Downloads: " + totalDownloads + "</li></ul>");
+        let returnHtml = "<h4><span class='material-icons md-24'>leaderboard</span>&nbsp;&nbsp;" +
+            "Repository Stats</h4><ul>";
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>visibility</span>&nbsp;&nbsp;" +
+            "Watchers: " + repository.subscribers_count + "</li>");
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>star_border</span>&nbsp;&nbsp;" +
+            "Stargazers: " + repository.stargazers_count + "</li>");
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>call_split</span>&nbsp;&nbsp;" +
+            "Forks: " + repository.forks_count + "</li>");
+        returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;" +
+            "Total Downloads: " + totalDownloads + "</li></ul>");
         return returnHtml;
     }
     /**
@@ -230,9 +230,9 @@ class Main {
         else if (release.prerelease) {
             releaseBadge = "&nbsp;&nbsp;<span class='badge'>Pre-release</span>";
         }
-        let returnHtml = "<h3><span class='material-icons md-24'>local_offer</span>&nbsp;&nbsp;"
-            + "<a href='" + release.html_url + "' target='_blank'>" + release.tag_name + "</a>"
-            + releaseBadge + "</h3>";
+        let returnHtml = "<h3><span class='material-icons md-24'>local_offer</span>&nbsp;&nbsp;" +
+            "<a href='" + release.html_url + "' target='_blank'>" + release.tag_name + "</a>" +
+            releaseBadge + "</h3>";
         returnHtml = returnHtml.concat("<hr class='node-hr'>");
         return returnHtml;
     }
@@ -243,15 +243,15 @@ class Main {
      * Returns a string containing the release info as an HTML element
      */
     getReleaseInfoAsHtml(release, downloadCount = 0) {
-        let returnHtml = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
-            + "Release Info</h4><ul>";
+        let returnHtml = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;" +
+            "Release Info</h4><ul>";
         if (release.author != null) {
-            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;"
-                + "Author: <a href='" + release.author.html_url + "'>@" + release.author.login + "</a></li>");
+            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" +
+                "Author: <a href='" + release.author.html_url + "'>@" + release.author.login + "</a></li>");
         }
         if (downloadCount > 0) {
-            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;"
-                + "Downloads: " + downloadCount + "</li>");
+            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>get_app</span>&nbsp;&nbsp;" +
+                "Downloads: " + downloadCount + "</li>");
         }
         returnHtml = returnHtml.concat("</ul>");
         return returnHtml;
@@ -265,14 +265,15 @@ class Main {
     getDownloadInfoAsHtml(assets) {
         if (assets.length > 0) {
             let releaseDownloadCount = 0;
-            let returnHtml = "<h4><span class='material-icons md-24'>get_app</span>&nbsp;&nbsp;"
-                + "Download Info</h4><ul>";
+            let returnHtml = "<h4><span class='material-icons md-24'>get_app</span>&nbsp;&nbsp;" +
+                "Download Info</h4><ul>";
             assets.forEach((asset) => {
                 let assetSize = (asset.size / 1048576.0).toFixed(2); // 1048576.0 == 1 mega byte
                 let lastUpdate = asset.updated_at.split("T")[0];
-                returnHtml = returnHtml.concat("<li><code>" + asset.name + "</code> (" + assetSize + "&nbsp;MiB) "
-                    + "- Downloaded " + asset.download_count + "&nbsp;times "
-                    + "- Last updated on " + lastUpdate + "</li>");
+                returnHtml = returnHtml.concat("<li><code><a href='" + asset.browser_download_url + "' target='_self'>" +
+                    asset.name + "</a></code> (" + assetSize + "&nbsp;MiB) " +
+                    "- Downloaded " + asset.download_count + "&nbsp;times " +
+                    "- Last updated on " + lastUpdate + "</li>");
                 releaseDownloadCount += asset.download_count;
             });
             returnHtml = returnHtml.concat("</ul>");
