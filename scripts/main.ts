@@ -11,6 +11,11 @@ class Main {
      * Intializes a new instance of Main
      */
     constructor() {
+        // Reset the stat results
+        let result: HTMLDivElement = document.getElementById("stats-result") as HTMLDivElement;
+        result.innerHTML = "";
+
+        // Validate current input
         this.validateUserInput();
 
         // Setup form event handlers

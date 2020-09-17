@@ -20,6 +20,10 @@ class Main {
          * Root address to the github api
          */
         this.apiRoot = "https://api.github.com/";
+        // Reset the stat results
+        let result = document.getElementById("stats-result");
+        result.innerHTML = "";
+        // Validate current input
         this.validateUserInput();
         // Setup form event handlers
         (_a = document.getElementById("username")) === null || _a === void 0 ? void 0 : _a.addEventListener("keyup", this.validateUserInput);
