@@ -210,7 +210,7 @@ class Main {
      */
     private getRepositoryInfoAsHtml(repository: any): string {
         let returnHtml: string = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;" +
-                                    "Repository Info</h4><ul>";
+                                    "Repository Info</h4><ul class='repository-info'>>";
         
         if(repository.owner != null) {
            returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" +
@@ -236,7 +236,7 @@ class Main {
      */
     private getRepositoryStatsAsHtml(repository: any, totalDownloads: number): string {
         let returnHtml: string = "<h4><span class='material-icons md-24'>leaderboard</span>&nbsp;&nbsp;" + 
-                                    "Repository Stats</h4><ul>";
+                                    "Repository Stats</h4><ul class='repository-stats'>>";
         returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>visibility</span>&nbsp;&nbsp;" + 
                                         "Watchers: " + repository.subscribers_count + "</li>");
         returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>star_border</span>&nbsp;&nbsp;" + 
@@ -280,7 +280,7 @@ class Main {
      */
     private getReleaseInfoAsHtml(release: any, downloadCount: number = 0): string {
         let returnHtml: string = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;" + 
-                                    "Release Info</h4><ul>";
+                                    "Release Info</h4><ul class='release-info'>>";
 
         if(release.author != null) {
             returnHtml = returnHtml.concat("<li><span class='material-icons md-18'>person</span>&nbsp;&nbsp;" + 
@@ -310,16 +310,16 @@ class Main {
         if(assets.length > 0) {
             let releaseDownloadCount: number = 0;
             let returnHtml: string = "<h4><span class='material-icons md-24'>get_app</span>&nbsp;&nbsp;" +
-                                        "Download Info</h4><ul>";
+                                        "Download Info</h4><ul class='download-info'>";
 
             assets.forEach((asset) => {
                 let assetSize: string = (asset.size / 1048576.0).toFixed(2); // 1048576.0 == 1 mega byte
                 let lastUpdate: Date = asset.updated_at.split("T")[0];
 
                 returnHtml = returnHtml.concat("<li><code><a href='" + asset.browser_download_url + "' target='_self'>" + 
-                                                asset.name + "</a></code> (" + assetSize + "&nbsp;MiB) " +
-                                                "- Downloaded " + asset.download_count + "&nbsp;times " + 
-                                                "- Last updated on " + lastUpdate + "</li>");
+                                                asset.name + "</a></code> (" + assetSize + "&nbsp;MiB) <br>" +
+                                                "Downloaded " + asset.download_count + "&nbsp;times <br>" + 
+                                                "Last updated on " + lastUpdate + "</li>");
                 releaseDownloadCount += asset.download_count;
             });
 
