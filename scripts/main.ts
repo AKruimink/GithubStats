@@ -22,14 +22,14 @@ class Main {
         (document.getElementById("username") as HTMLInputElement)?.addEventListener("keyup", this.validateUserInput);
         (document.getElementById("username") as HTMLInputElement)?.addEventListener("change", this.setUserRepositories.bind(this));
         (document.getElementById("username") as HTMLInputElement)?.addEventListener("keyup", (e: KeyboardEvent) => {
-            if(e.keyCode == 13) {
+            if(e.key == "Enter") {
                 this.onEnterPressed();
             }
         });
         (document.getElementById("repository") as HTMLInputElement)?.addEventListener("keyup", this.validateUserInput);
         (document.getElementById("repository") as HTMLInputElement)?.addEventListener("input", this.validateUserInput);
         (document.getElementById("repository") as HTMLInputElement)?.addEventListener("keyup", (e: KeyboardEvent) => {
-            if(e.keyCode == 13) {
+            if(e.key == "Enter") {
                 this.onEnterPressed();
             }
         });

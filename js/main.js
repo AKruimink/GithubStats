@@ -29,14 +29,14 @@ class Main {
         (_a = document.getElementById("username")) === null || _a === void 0 ? void 0 : _a.addEventListener("keyup", this.validateUserInput);
         (_b = document.getElementById("username")) === null || _b === void 0 ? void 0 : _b.addEventListener("change", this.setUserRepositories.bind(this));
         (_c = document.getElementById("username")) === null || _c === void 0 ? void 0 : _c.addEventListener("keyup", (e) => {
-            if (e.keyCode == 13) {
+            if (e.key == "Enter") {
                 this.onEnterPressed();
             }
         });
         (_d = document.getElementById("repository")) === null || _d === void 0 ? void 0 : _d.addEventListener("keyup", this.validateUserInput);
         (_e = document.getElementById("repository")) === null || _e === void 0 ? void 0 : _e.addEventListener("input", this.validateUserInput);
         (_f = document.getElementById("repository")) === null || _f === void 0 ? void 0 : _f.addEventListener("keyup", (e) => {
-            if (e.keyCode == 13) {
+            if (e.key == "Enter") {
                 this.onEnterPressed();
             }
         });
