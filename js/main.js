@@ -118,7 +118,7 @@ class Main {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             let repositoryUrl = this.apiRoot + "repos/" + ((_a = document.getElementById("username")) === null || _a === void 0 ? void 0 : _a.value) + "/" + ((_b = document.getElementById("repository")) === null || _b === void 0 ? void 0 : _b.value);
-            let repositoryResponse = yield fetch(repositoryUrl);
+            let repositoryResponse = yield fetch(repositoryUrl + "?page=1&per_page=100");
             let error = false;
             let errorMessage = "";
             if (repositoryResponse.status == 404) {
@@ -137,7 +137,7 @@ class Main {
                 let repositoryData = yield repositoryResponse.json();
                 let isLatestRelease = true;
                 let totalDownloads = 0;
-                let releaseResponse = yield fetch(repositoryUrl + "/releases");
+                let releaseResponse = yield fetch(repositoryUrl + "/releases?page=1&per_page=100");
                 let releaseData = yield releaseResponse.json();
                 // get the information of each release
                 releaseData.forEach((release) => {
@@ -178,8 +178,9 @@ class Main {
         });
     }
     /**
-     *
-     * @param repository
+     * Gets the info of a given repository as an HTML element
+     * @param repository Repository used to create the info element with
+     * Returns a string containing the repository info as an HTML element
      */
     getRepositoryInfoAsHtml(repository) {
         let returnHtml = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
@@ -197,9 +198,10 @@ class Main {
         return returnHtml;
     }
     /**
-     *
-     * @param repository
-     * @param totalDownloads
+     * Gets the stats info of a given repository as an HTML element
+     * @param repository Repository used to create the stats element with
+     * @param totalDownloads Total amount of downloads the repository has
+     * Returns a string containing the repository stats as an HTML element
      */
     getRepositoryStatsAsHtml(repository, totalDownloads) {
         let returnHtml = "<h4><span class='material-icons md-24'>leaderboard</span>&nbsp;&nbsp;"
@@ -238,6 +240,7 @@ class Main {
      * Gets the release info of a release as a HTML element
      * @param release Release used to create the release info element
      * @param downloadCount Amount of downloads the release has
+     * Returns a string containing the release info as an HTML element
      */
     getReleaseInfoAsHtml(release, downloadCount = 0) {
         let returnHtml = "<h4><span class='material-icons md-24'>info</span>&nbsp;&nbsp;"
@@ -285,7 +288,7 @@ class Main {
         return __awaiter(this, void 0, void 0, function* () {
             let username = (_a = document.getElementById("username")) === null || _a === void 0 ? void 0 : _a.value;
             let repositoryList = document.getElementById("repository-list");
-            let response = yield fetch(this.apiRoot + "users/" + username + "/repos");
+            let response = yield fetch(this.apiRoot + "users/" + username + "/repos?page=1&per_page=100");
             if (response.ok == true) {
                 let data = yield response.json();
                 repositoryList.innerHTML = "";
