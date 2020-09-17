@@ -23,8 +23,8 @@ Anything you might want to know about a project in a simple and concise layout.
 ## Faq
 **Why was Github Stats made?**
 > There are basicly two reasons for the creation.
-> - [WinReform](https://github.com/AKruimink/WinReform) had just gotton released and had a hard time finding out the amount of downloads it had obtained without manualy using the Github Api.
-> - In an attempt to improve my web development skill as well as to experiment with TypeScript.
+> [WinReform](https://github.com/AKruimink/WinReform) had just gotton released and i had a hard time finding out the amount of downloads it had obtained without manualy using the Github Api,
+> as well as an attempt to improve my web development skill and experiment with TypeScript.
 
 **Will there ever be a light themed version**
 > The simple answer is yes, a light themed version is planned.
