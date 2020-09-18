@@ -33,3 +33,4 @@ Github Stats is provided as-is under the Apache License Version 2.0. For more in
 
 ## ShowRoom
 ![image](./docs/GithubStatsSample.png)
+![image](./docs/GithubStatsSample2.png)
